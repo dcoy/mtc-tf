@@ -16,7 +16,7 @@ resource "github_repository_file" "readme" {
   repository          = github_repository.tf_asct_repo[count.index].name
   branch              = "main"
   file                = "README.md"
-  content             = "# Terraform Associate Certification"
+  content             = "# Terraform Associate Certification - ${var.env}"
   overwrite_on_create = true
 }
 
