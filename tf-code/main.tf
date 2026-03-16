@@ -7,7 +7,7 @@ resource "github_repository" "tf_asct_repo" {
   count       = var.repo_count
   name        = "tf-asct-repo-${random_id.random[count.index].dec}"
   description = "Code for tf associate"
-  visibility  = "private"
+  visibility  = var.env == "dev" ? "private" : "public"
   auto_init   = true
 }
 
