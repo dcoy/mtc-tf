@@ -30,7 +30,7 @@ resource "github_repository_file" "index" {
 }
 
 output "repo-names" {
-  value       = github_repository.tf_asct_repo[*].name
-  description = "repository names"
-  sensitive   = true
+  value       = { for i in github_repository.tf_asct_repo[*] : i.name => i.http_clone_url }
+  description = "Repository names + URL"
+  sensitive   = false
 }
