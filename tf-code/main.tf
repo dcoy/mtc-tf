@@ -1,16 +1,19 @@
 resource "random_id" "random" {
   byte_length = 2
+  count       = 2
 }
 
 resource "github_repository" "tf_asct_repo" {
-  name        = "tf-asct-repo-${random_id.random.dec}"
+  count       = 2
+  name        = "tf-asct-repo-${random_id.random[count.index].dec}"
   description = "Code for tf associate"
   visibility  = "private"
   auto_init   = true
 }
 
 resource "github_repository_file" "readme" {
-  repository          = github_repository.tf_asct_repo.name
+  count               = 2
+  repository          = github_repository.tf_asct_repo[count.index].name
   branch              = "main"
   file                = "README.md"
   content             = "# Terraform Associate Certification"
@@ -18,7 +21,8 @@ resource "github_repository_file" "readme" {
 }
 
 resource "github_repository_file" "index" {
-  repository          = github_repository.tf_asct_repo.name
+  count               = 2
+  repository          = github_repository.tf_asct_repo[count.index].name
   branch              = "main"
   file                = "index.html"
   content             = "Hello Terraform!"
