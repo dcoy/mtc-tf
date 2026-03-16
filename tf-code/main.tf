@@ -1,10 +1,10 @@
 resource "random_id" "random" {
   byte_length = 2
-  count       = 2
+  count       = var.repo_count
 }
 
 resource "github_repository" "tf_asct_repo" {
-  count       = 2
+  count       = var.repo_count
   name        = "tf-asct-repo-${random_id.random[count.index].dec}"
   description = "Code for tf associate"
   visibility  = "private"
@@ -12,7 +12,7 @@ resource "github_repository" "tf_asct_repo" {
 }
 
 resource "github_repository_file" "readme" {
-  count               = 2
+  count               = var.repo_count
   repository          = github_repository.tf_asct_repo[count.index].name
   branch              = "main"
   file                = "README.md"
@@ -21,7 +21,7 @@ resource "github_repository_file" "readme" {
 }
 
 resource "github_repository_file" "index" {
-  count               = 2
+  count               = var.repo_count
   repository          = github_repository.tf_asct_repo[count.index].name
   branch              = "main"
   file                = "index.html"
